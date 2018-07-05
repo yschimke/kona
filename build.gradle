@@ -1,40 +1,52 @@
 buildscript {
 	ext {
-		kotlinVersion = '1.2.50'
+		kotlinVersion = '1.2.51'
 	}
 	repositories {
-		mavenCentral()
+		google()
+		jcenter()
 	}
 	dependencies {
+		classpath 'com.android.tools.build:gradle:3.1.3'
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-		classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
 	}
 }
 
-apply plugin: 'kotlin'
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 group = 'com.baulsupp'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
-compileKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+
+android {
+	compileSdkVersion 27
+	defaultConfig {
+		minSdkVersion 21
+		targetSdkVersion 27
+		versionCode 3
+		versionName "1.3"
+		multiDexEnabled true
 	}
-}
-compileTestKotlin {
-	kotlinOptions {
-		freeCompilerArgs = ["-Xjsr305=strict"]
-		jvmTarget = "1.8"
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	buildToolsVersion '27.0.3'
+	lintOptions {
+		abortOnError false
 	}
 }
 
 repositories {
+	google()
+	jcenter()
 	mavenCentral()
+	maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
-
 dependencies {
-	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	compile("org.jetbrains.kotlin:kotlin-reflect")
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+	implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
+	implementation 'com.facebook.sonar:sonar:0.0.10'
 }
