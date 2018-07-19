@@ -12,33 +12,13 @@ buildscript {
 	}
 }
 
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
 group = 'com.baulsupp'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
 
-android {
-	compileSdkVersion 27
-	defaultConfig {
-		minSdkVersion 21
-		targetSdkVersion 27
-		versionCode 3
-		versionName "1.3"
-		multiDexEnabled true
-	}
-	compileOptions {
-		sourceCompatibility JavaVersion.VERSION_1_8
-		targetCompatibility JavaVersion.VERSION_1_8
-	}
-	buildToolsVersion '27.0.3'
-	lintOptions {
-		abortOnError false
-	}
-}
+apply plugin: 'kotlin'
 
 repositories {
+	maven { url 'https://oss.jfrog.org/libs-snapshot' }
 	google()
 	jcenter()
 	mavenCentral()
@@ -48,5 +28,12 @@ repositories {
 dependencies {
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
 	implementation "org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}"
-	implementation 'com.facebook.sonar:sonar:0.0.10'
+	implementation "com.squareup.okhttp3:okhttp:3.11.0"
+	implementation "io.rsocket.android:rsocket-core:0.9-SNAPSHOT"
+	implementation "io.rsocket.android:rsocket-transport-okhttp:0.9-SNAPSHOT"
+	implementation 'org.json:json:20180130'
+	implementation files('lib/sonar-0.6.12.jar')
+
+    testImplementation "io.rsocket.android:rsocket-transport-okhttp:0.9-SNAPSHOT"
+    testImplementation "io.rsocket.android:rsocket-transport-netty:0.9-SNAPSHOT"
 }
